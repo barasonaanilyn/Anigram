@@ -5,7 +5,8 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-        $data['innerView']='vDashboard';
-		$this->load->view('template',$data);
+		$cData['vData']['page'] = 'Dh';
+        $cData['innerView']='vDashboard';
+		$this->load->view('user/template',$cData);
 	}
 }

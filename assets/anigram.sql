@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema anigram
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema anigram
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `anigram` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `anigram` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`User`
+-- Table `anigram`.`User`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`User` (
+CREATE TABLE IF NOT EXISTS `anigram`.`User` (
   `User_ID` INT NOT NULL AUTO_INCREMENT,
   `User_Name` VARCHAR(45) NULL,
   `User_Username` VARCHAR(45) NULL,
@@ -30,9 +30,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Dictionary`
+-- Table `anigram`.`Dictionary`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Dictionary` (
+CREATE TABLE IF NOT EXISTS `anigram`.`Dictionary` (
   `D_ID` INT NOT NULL AUTO_INCREMENT,
   `D_Name` VARCHAR(45) NULL,
   `D_User` INT NOT NULL,
@@ -40,16 +40,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Dictionary` (
   INDEX `fk_Dictionary_User_idx` (`D_User` ASC),
   CONSTRAINT `fk_Dictionary_User`
     FOREIGN KEY (`D_User`)
-    REFERENCES `mydb`.`User` (`User_ID`)
+    REFERENCES `anigram`.`User` (`User_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Word`
+-- Table `anigram`.`Word`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Word` (
+CREATE TABLE IF NOT EXISTS `anigram`.`Word` (
   `W_ID` INT NOT NULL AUTO_INCREMENT,
   `W_Name` VARCHAR(45) NULL,
   `W_Pro` VARCHAR(100) NULL,
@@ -61,16 +61,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Word` (
   INDEX `fk_Word_Dictionary1_idx` (`W_Dictionary` ASC),
   CONSTRAINT `fk_Word_Dictionary1`
     FOREIGN KEY (`W_Dictionary`)
-    REFERENCES `mydb`.`Dictionary` (`D_ID`)
+    REFERENCES `anigram`.`Dictionary` (`D_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Synonym`
+-- Table `anigram`.`Synonym`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Synonym` (
+CREATE TABLE IF NOT EXISTS `anigram`.`Synonym` (
   `S_ID` INT NOT NULL AUTO_INCREMENT,
   `S_Word1` INT NOT NULL,
   `S_Word2` INT NOT NULL,
@@ -79,21 +79,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Synonym` (
   INDEX `fk_Synonym_Word2_idx` (`S_Word2` ASC),
   CONSTRAINT `fk_Synonym_Word1`
     FOREIGN KEY (`S_Word1`)
-    REFERENCES `mydb`.`Word` (`W_ID`)
+    REFERENCES `anigram`.`Word` (`W_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Synonym_Word2`
     FOREIGN KEY (`S_Word2`)
-    REFERENCES `mydb`.`Word` (`W_ID`)
+    REFERENCES `anigram`.`Word` (`W_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Antonym`
+-- Table `anigram`.`Antonym`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Antonym` (
+CREATE TABLE IF NOT EXISTS `anigram`.`Antonym` (
   `A_ID` INT NOT NULL AUTO_INCREMENT,
   `A_Word1` INT NOT NULL,
   `A_Word2` INT NOT NULL,
@@ -102,12 +102,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Antonym` (
   INDEX `fk_Antonym_Word2_idx` (`A_Word2` ASC),
   CONSTRAINT `fk_Antonym_Word1`
     FOREIGN KEY (`A_Word1`)
-    REFERENCES `mydb`.`Word` (`W_ID`)
+    REFERENCES `anigram`.`Word` (`W_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Antonym_Word2`
     FOREIGN KEY (`A_Word2`)
-    REFERENCES `mydb`.`Word` (`W_ID`)
+    REFERENCES `anigram`.`Word` (`W_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
